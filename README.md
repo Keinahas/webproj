@@ -5,6 +5,7 @@
 ```
 
 npm install -g yarn
+yarn global add nodemon
 
 ```
 
@@ -80,7 +81,6 @@ cd backend
 ```
 
 yarn install
-yarn global add nodemon
 
 ```
 
@@ -89,13 +89,5 @@ yarn global add nodemon
 ```
 
 nodemon start
-
-```
-
-### Compiles and reloads for developement, run the app with this command
-
-```
-
-yarn install
 
 ```

@@ -6,7 +6,7 @@
 			</template>
 			<v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-			<v-toolbar-title class="text-uppercase white--text">
+			<v-toolbar-title class="text-uppercase white--text" @click="goMain">
 				<span><h3>Database Design</h3></span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>

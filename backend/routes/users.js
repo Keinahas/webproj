@@ -5,9 +5,10 @@ var router = express.Router();
 router.get("/", function(req, res, next) {
 	var empRepository = global.connection.getRepository("EMP_DVLPR");
 	empRepository
-		.find()
-		.then(function(result) {
-			console.log(result);
+		.find({ EMP_SN: 2 })
+		.then(dvlpr => {
+			console.log(dvlpr);
+			dvlpr.methods.test();
 		})
 		.catch(err => {
 			console.log(err);

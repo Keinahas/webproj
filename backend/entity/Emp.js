@@ -4,9 +4,12 @@ module.exports = {
 	columns: {
 		// Employee Serial Number
 		EMP_SN: {
-			type: "number",
 			primary: true,
-			generated: true,
+			type: "number",
+			generated: "increment",
+			// strategy: "increment",
+			nullable: false,
+			// https://github.com/typeorm/typeorm/issues/1542
 		},
 		// Employee Name
 		EMP_NM: {

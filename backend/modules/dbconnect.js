@@ -1,6 +1,6 @@
 const typeorm = require("typeorm");
-const EntitySchema = typeorm.EntitySchema;
 const dotenv = require("dotenv");
+const EntitySchema = typeorm.EntitySchema;
 dotenv.config();
 class DBConn {
 	constructor() {

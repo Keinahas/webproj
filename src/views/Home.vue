@@ -130,7 +130,7 @@
 					<br />
 					<br />
 					<!-- to="mypage" 수정 필요 -->
-					<v-btn class="ma-2" outlined color="secondary" to="mypage"
+					<v-btn class="ma-2" outlined color="secondary"
 						><v-icon left>mdi-account-circle</v-icon>More</v-btn
 					>
 				</v-col>

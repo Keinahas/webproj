@@ -1,13 +1,11 @@
 <template>
-	<v-container class="fill-height">
-		<v-container v-if="!userId" color="primary" class="fill-height">
-			<!-- 로그인 안했을때 -->
-			Home
-		</v-container>
-		<v-container v-else color="primary" class="fill-height">
-			<!-- 로그인 했을때 -->
-			Main
-		</v-container>
+	<v-container v-if="!userId" color="primary" class="fill-height">
+		<!-- 로그인 안했을때 -->
+		Home
+	</v-container>
+	<v-container v-else color="primary" class="fill-height">
+		<!-- 로그인 했을때 -->
+		Main
 	</v-container>
 </template>
 

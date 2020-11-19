@@ -3,7 +3,7 @@
 		<v-app-bar color="primary" dark app>
 			<v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-			<v-toolbar-title>Title</v-toolbar-title>
+			<v-toolbar-title>DataBase Design</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-btn v-if="!userId" color="primary" class="elevation-0" to="register"
 				><v-icon left>mdi-login</v-icon>Register</v-btn

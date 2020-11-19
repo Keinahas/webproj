@@ -44,7 +44,7 @@
 				<v-col id="News1" cols="3">
 					<h3>소개</h3>
 					<br />
-					<text--disabled>Database Design 소개</text--disabled>
+					<h4>Database Design 소개</h4>
 				</v-col>
 				<v-col id="News1" cols="3">
 					<h3>미디어</h3>

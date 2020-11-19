@@ -6,20 +6,20 @@
 			</template>
 			<v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-			<v-toolbar-title class="text-uppercase white--text">
+			<v-toolbar-title class="text-uppercase white--text" @click="goMain">
 				<span><h3>Database Design</h3></span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-btn v-if="!userId" class="ma-2" outlined color="white" to="register"
 				><v-icon left>mdi-login</v-icon>Register</v-btn
 			>
-			<v-btn v-else color="primary" class="elevation-0" to="mypage"
+			<v-btn v-else class="ma-2" outlined color="white" to="mypage"
 				><v-icon left>mdi-account-circle</v-icon>MyPage</v-btn
 			>
 			<v-btn v-if="!userId" class="ma-2" outlined color="white" to="login"
 				><v-icon left>mdi-login</v-icon>Login</v-btn
 			>
-			<v-btn v-else color="primary" class="elevation-0" @click="$store.commit('logout')"
+			<v-btn v-else class="ma-2" outlined color="white" @click="$store.commit('logout')"
 				><v-icon left>mdi-logout</v-icon>Logout</v-btn
 			>
 		</v-app-bar>

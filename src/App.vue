@@ -10,13 +10,13 @@
 				<span><h3>Database Design</h3></span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-btn v-if="!userId" class="ma-2" outlined color="white" to="register"
+			<v-btn v-if="!userId" outlined color="primary" to="register"
 				><v-icon left>mdi-login</v-icon>Register</v-btn
 			>
 			<v-btn v-else class="ma-2" outlined color="white" to="mypage"
 				><v-icon left>mdi-account-circle</v-icon>MyPage</v-btn
 			>
-			<v-btn v-if="!userId" class="ma-2" outlined color="white" to="login"
+			<v-btn v-if="!userId" outlined color="primary" to="login"
 				><v-icon left>mdi-login</v-icon>Login</v-btn
 			>
 			<v-btn v-else class="ma-2" outlined color="white" @click="$store.commit('logout')"

@@ -43,7 +43,7 @@
 						label="주민등록번호"
 					></v-text-field>
 
-					<v-btn :disabled="!valid" class="ma-2" outlined color="secondary" @click="save">
+					<v-btn :disabled="!valid" class="ma-2" outlined color="primary" @click="save">
 						Save
 					</v-btn>
 					<v-btn color="error" class="ma-2" outlined @click="getEmp">
@@ -59,11 +59,7 @@
 			<v-col cols="12"></v-col>
 			<v-col cols="12"></v-col>
 			<v-col cols="12"></v-col>
-			<v-progress-linear
-				background-color="secondary"
-				color="#030712"
-				value="30"
-			></v-progress-linear>
+			<v-progress-linear background-color="primary" color="#030712" value="30"></v-progress-linear>
 			<v-col cols="12"></v-col>
 			<v-col cols="12"></v-col>
 			<v-col id="News1" cols="3">
@@ -100,7 +96,7 @@
 			>
 			<v-col cols="1"></v-col>
 			<v-col cols="6"
-				><p class="text--secondary">
+				><p class="text--primary">
 					copyright @Database Design Crop. All Rights Reserved
 				</p></v-col
 			>

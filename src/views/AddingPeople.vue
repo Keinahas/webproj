@@ -1,6 +1,6 @@
 <template>
 	<v-container class="fill-height">
-		<v-container v-if="!userId" color="primary" class="fill-height">
+		<v-container v-if="!userId" color="secondary" class="fill-height">
 			<v-row aria-rowcount="20">
 				<v-col cols="12">
 					<h1>프로젝트01 참여자 추가</h1>
@@ -9,7 +9,7 @@
 				<v-col cols="12"></v-col>
 				<v-progress-linear
 					background-color="#030712"
-					color="secondary"
+					color="primary"
 					value="30"
 				></v-progress-linear>
 				<v-col cols="12"></v-col>
@@ -37,19 +37,21 @@
 					</v-data-table>
 				</v-col>
 				<v-col cols="12" align="right">
-					<v-btn v-if="!userId" class="ma-2" outlined color="secondary" to=""
+					<v-btn v-if="!userId" class="ma-2" outlined color="primary" to=""
 						><v-icon left>mdi-login</v-icon>RESET</v-btn
 					>
-					<v-btn v-if="!userId" outlined color="secondary" to=""
+					<v-btn v-if="!userId" outlined color="primary" to=""
 						><v-icon left>mdi-login</v-icon>SAVE</v-btn
 					>
 				</v-col>
+				Nutrition
+				<v-spacer></v-spacer>
 				<v-col cols="12"></v-col>
 				<v-col cols="12"></v-col>
 				<v-col cols="12"></v-col>
 				<v-col cols="12"></v-col>
 				<v-progress-linear
-					background-color="secondary"
+					background-color="primary"
 					color="#030712"
 					value="30"
 				></v-progress-linear>

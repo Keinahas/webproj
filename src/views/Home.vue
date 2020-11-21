@@ -6,14 +6,14 @@
 					<h2>데이터베이스 디자인 웹 설계 프로젝트</h2>
 					<br />
 				</v-col>
-				<v-col cols="12" color="secondary">
+				<v-col cols="12" color="primary">
 					<h3>참여자 : 김다연, 나유현, 박수원, 장우찬</h3>
 					<br
 				/></v-col>
 				<v-col cols="12"></v-col>
 				<v-progress-linear
 					background-color="#030712"
-					color="secondary"
+					color="primary"
 					value="30"
 				></v-progress-linear>
 				<v-col cols="12"></v-col>
@@ -34,7 +34,7 @@
 				<v-col cols="12"></v-col>
 				<v-col cols="12"></v-col>
 				<v-progress-linear
-					background-color="secondary"
+					background-color="primary"
 					color="#030712"
 					value="30"
 				></v-progress-linear>
@@ -74,13 +74,13 @@
 				>
 				<v-col cols="1"></v-col>
 				<v-col cols="6"
-					><p class="text--secondary">
+					><p class="text--primary">
 						copyright @Database Design Crop. All Rights Reserved
 					</p></v-col
 				>
 			</v-row>
 		</v-container>
-		<v-container v-else color="primary" class="fill-height">
+		<v-container v-else color="secondary" class="fill-height">
 			<!-- 로그인 했을때 -->
 			<v-row aria-rowcount="20">
 				<v-col cols="12" align="center">
@@ -89,7 +89,7 @@
 				</v-col>
 				<v-col cols="12"></v-col>
 				<v-progress-linear
-					background-color="secondary"
+					background-color="primary"
 					color="#030712"
 					value="30"
 				></v-progress-linear>
@@ -130,7 +130,7 @@
 					<br />
 					<br />
 					<!-- to="mypage" 수정 필요 -->
-					<v-btn class="ma-2" outlined color="secondary"
+					<v-btn class="ma-2" outlined color="primary"
 						><v-icon left>mdi-account-circle</v-icon>More</v-btn
 					>
 				</v-col>
@@ -138,7 +138,7 @@
 				<v-col cols="12"></v-col>
 
 				<v-progress-linear
-					background-color="secondary"
+					background-color="primary"
 					color="#030712"
 					value="30"
 				></v-progress-linear>
@@ -178,7 +178,7 @@
 				>
 				<v-col cols="1"></v-col>
 				<v-col cols="6"
-					><p class="text--secondary">
+					><p class="text--primary">
 						copyright @Database Design Crop. All Rights Reserved
 					</p></v-col
 				>

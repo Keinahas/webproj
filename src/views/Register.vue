@@ -59,7 +59,7 @@
 					</v-card-text>
 					<v-card-actions>
 						<v-spacer></v-spacer>
-						<v-btn class="ma-2" outlined color="secondary" depressed tile @click="onRegister"
+						<v-btn class="ma-2" outlined color="primary" depressed tile @click="onRegister"
 							>Register</v-btn
 						>
 					</v-card-actions>

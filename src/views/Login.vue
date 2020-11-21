@@ -36,7 +36,7 @@
 					</v-card-text>
 					<v-card-actions>
 						<v-spacer></v-spacer>
-						<v-btn class="ma-2" outlined color="secondary" depressed tile @click="onLogin"
+						<v-btn class="ma-2" outlined color="primary" depressed tile @click="onLogin"
 							>Login</v-btn
 						>
 					</v-card-actions>

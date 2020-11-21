@@ -8,6 +8,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import MyPage from "../views/MyPage.vue";
 import emp_mngmt from "../views/emp_mngmt.vue";
+import AddingPeople from "../views/AddingPeople.vue";
 
 Vue.use(VueRouter);
 
@@ -41,6 +42,10 @@ const routes = [
 	{
 		path: "/emp_mngmt",
 		component: emp_mngmt,
+	},
+	{
+		path: "/addingpeople",
+		component: AddingPeople,
 	},
 ];
 

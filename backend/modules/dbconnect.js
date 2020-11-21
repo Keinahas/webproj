@@ -7,7 +7,7 @@ class DBConn {
 		typeorm
 			.createConnection({
 				type: "oracle",
-				host: "localhost",
+				host: "175.196.113.2",
 				port: 1521,
 				sid: "xe",
 				username: process.env.TYPEORM_USERNAME,

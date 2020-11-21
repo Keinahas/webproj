@@ -10,7 +10,7 @@ export default new Vuetify({
 			light: {
 				primary: colors.shades.white,
 				secondary: "#000080",
-				lineColor2: "#030712",
+				lineColor: "#030712",
 				accent: colors.indigo.base,
 			},
 		},

@@ -7,6 +7,7 @@ import About from "../views/About.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import MyPage from "../views/MyPage.vue";
+import AddingPeople from "../views/AddingPeople.vue";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
 	{
 		path: "/mypage",
 		component: MyPage,
+	},
+	{
+		path: "/addingpeople",
+		component: AddingPeople,
+		meta: { forAll: true },
 	},
 ];
 

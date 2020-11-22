@@ -109,6 +109,7 @@ export default {
 				});
 		},
 		onRegister() {
+			if (this.idDup) return;
 			this.$refs.registryForm.resetValidation();
 			this.$axios
 				.post("/api/register", this.regModel)

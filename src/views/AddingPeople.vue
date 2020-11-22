@@ -63,8 +63,33 @@
 						<template v-slot:item.PROJ_OUTSET="{ item }">
 							<v-simple-checkbox v-model="item.PROJ_OUTSET"></v-simple-checkbox>
 						</template>
+						<template v-slot:top>
+							<v-dialog v-model="dialog2" max-width="500px">
+								<v-card>
+									<v-container>
+										<v-row>
+											<v-col cols="12" sm="6" md="4"> </v-col>
+											<v-col cols="12" sm="6" md="4">
+												<v-input> 경험기술목록 </v-input>
+											</v-col>
+											<v-col cols="12" sm="6" md="4"> </v-col>
+											<v-col cols="12" sm="6" md="4">
+												<v-spacer></v-spacer>
+												<v-input v-model="ExpTchItem2.EXP_TCH">
+													{{ ExpTchItem2.EXP_TCH }}
+												</v-input>
+											</v-col>
+										</v-row>
+									</v-container>
+									<v-card-actions>
+										<v-spacer></v-spacer>
+										<v-btn color="blue darken-1" text @click="close2">Cancel</v-btn>
+									</v-card-actions>
+								</v-card>
+							</v-dialog>
+						</template>
 						<template v-slot:item.EXP_TCH>
-							<v-btn color="gray darken-1" dark class="mb-2" @click="onExpTch(item)"
+							<v-btn color="gray darken-1" dark class="mb-2" @click="onExpTch2(item)"
 								>목록 보기</v-btn
 							>
 						</template>
@@ -257,7 +282,11 @@ export default {
 			ExpTchItem: {
 				EXP_TCH: "경험기술1",
 			},
+			ExpTchItem2: {
+				EXP_TCH: "경험기술2",
+			},
 			dialog: false,
+			dialog2: false,
 		};
 	},
 	methods: {
@@ -266,6 +295,12 @@ export default {
 		},
 		close() {
 			this.dialog = false;
+		},
+		onExpTch2() {
+			this.dialog2 = true;
+		},
+		close2() {
+			this.dialog2 = false;
 		},
 	},
 };

@@ -13,7 +13,7 @@ import ProjectManage from "../views/ProjectManage.vue";
 import ProjectDetailPage from "../views/ProjectDetailPage.vue";
 import PM_Eval from "../views/PM_Eval.vue";
 import CRK_Eval from "../views/CRK_Eval.vue";
-
+import ORNT_Eval from "../views/ORNT_Eval.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -67,6 +67,10 @@ const routes = [
 	{
 		path: "/CRK_Eval",
 		component: CRK_Eval,
+	},
+	{
+		path: "/ornt_eval",
+		component: ORNT_Eval,
 	},
 ];
 

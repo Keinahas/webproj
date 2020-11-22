@@ -29,19 +29,7 @@
 										<v-container>
 											<v-row>
 												<v-col cols="12" sm="6" md="4">
-													<v-text-field
-														v-model="editedItem.number"
-														label="프로젝트번호"
-													></v-text-field>
-												</v-col>
-												<v-col cols="12" sm="6" md="4">
 													<v-text-field v-model="editedItem.name" label="프로젝트명"></v-text-field>
-												</v-col>
-												<v-col cols="12" sm="6" md="4">
-													<v-text-field
-														v-model="editedItem.numofpeople"
-														label="프로젝트 참여자 수"
-													></v-text-field>
 												</v-col>
 												<v-col cols="12" sm="6" md="4">
 													<v-text-field
@@ -50,10 +38,11 @@
 													></v-text-field>
 												</v-col>
 												<v-col cols="12" sm="6" md="4">
-													<v-text-field v-model="editedItem.client" label="발주처"></v-text-field>
-												</v-col>
-												<v-col cols="12" sm="6" md="4">
-													<v-text-field v-model="editedItem.pm_name" label="담당자"></v-text-field>
+													<v-select
+														:items="['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K']"
+														label="발주처"
+														required
+													></v-select>
 												</v-col>
 											</v-row>
 										</v-container>

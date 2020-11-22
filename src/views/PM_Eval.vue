@@ -213,9 +213,11 @@ export default {
 		onSave() {
 			if (this.editFlag) {
 				// just save
-				this.$axios.patch(`/api/pmeval/${this.selectedParticipant.EVAL_SN}`).catch(err => {
-					console.log(err);
-				});
+				this.$axios
+					.patch(`/api/pmeval/${this.selectedParticipant.EVAL_SN}`, this.newEvalModel)
+					.catch(err => {
+						console.log(err);
+					});
 			} else {
 				let PMEvalModel = this.newEvalModel;
 				PMEvalModel.EVAL_MAN_NO = this.selectedParticipant.EMP_SN;

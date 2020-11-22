@@ -1,8 +1,7 @@
 import * as express from "express";
-import e = require("express");
 const router = express.Router();
-import { createQueryBuilder, getRepository } from "typeorm";
-import { Emp, EmpDvlpr, EmpMarkt, EmpMngmtManage, EmpRsrchDvlp } from "../entity/Emp";
+import { getRepository } from "typeorm";
+import { Emp, EmpDvlpr } from "../entity/Emp";
 
 /* GET users listing. */
 
@@ -27,8 +26,10 @@ router.get("/", async function(req, res) {
 			t[idx].emp_t = "개발자";
 			t[idx].career = String(dev.CAREER);
 		}
-		if (idx == Obj[1] - 1) {
-			return res.status(200).send(t);
+		if (idx == Obj[1] - 1 && t.length == Obj[1]) {
+			setTimeout(() => {
+				res.status(200).send(t);
+			}, 300);
 		}
 	});
 

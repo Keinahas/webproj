@@ -30,6 +30,7 @@ import { projRouter } from "./routes/projs";
 import { pmevalRouter } from "./routes/pmeval";
 import { crkRouter } from "./routes/crkeval";
 import { participantRouter } from "./routes/participants";
+import { orntRouter } from "./routes/ornt";
 
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
@@ -38,6 +39,7 @@ app.use("/proj", projRouter);
 app.use("/pmeval", pmevalRouter);
 app.use("/crkeval", crkRouter);
 app.use("/participants", participantRouter);
+app.use("/ornt", orntRouter);
 
 // start express server
 app.listen(3000);

@@ -3,8 +3,8 @@ import { Proj } from "./Proj";
 
 @Entity({ name: "ORNT" })
 export class Ornt {
-	@PrimaryGeneratedColumn()
-	ORNT_SN: Proj;
+	@PrimaryGeneratedColumn({ type: "int" })
+	ORNT_SN: number;
 
 	@Column({ length: 20, nullable: false })
 	ORNT_NM: string;

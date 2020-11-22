@@ -85,6 +85,10 @@ export default {
 	components: {
 		MyFooter,
 	},
+	mounted() {
+		// make get req
+		// this.$axios.get(`/api/proj/`);
+	},
 	data: () => ({
 		project: [
 			{

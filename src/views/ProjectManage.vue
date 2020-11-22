@@ -12,15 +12,15 @@
 			<v-col cols="12"></v-col>
 			<br />
 			<v-col cols="12">
-				<v-data-table :headers="headers" :items="project_manage_page">
+				<v-data-table ref="table" :headers="headers" :items="project_manage_page">
 					<template v-slot:top>
 						<v-toolbar flat>
 							<v-toolbar-title>프로젝트 관리</v-toolbar-title>
 							<v-divider class="mx-4" inset vertical></v-divider>
 							<v-spacer></v-spacer
 							><v-dialog v-model="dialog" max-width="500px">
-								<template v-slot:activator="{ on, attrs }">
-									<v-btn color="blue darken-1" dark class="mb-2" v-bind="attrs" v-on="on"
+								<template>
+									<v-btn color="blue darken-1" dark class="mb-2" @click="onAdd"
 										>프로젝트 추가</v-btn
 									>
 								</template>
@@ -29,39 +29,24 @@
 										<v-container>
 											<v-row>
 												<v-col cols="12" sm="6" md="4">
-													<v-text-field
-														v-model="editedItem.number"
-														label="프로젝트번호"
-													></v-text-field>
-												</v-col>
-												<v-col cols="12" sm="6" md="4">
-													<v-text-field v-model="editedItem.name" label="프로젝트명"></v-text-field>
+													<v-text-field v-model="newModel.name" label="프로젝트명"></v-text-field>
 												</v-col>
 												<v-col cols="12" sm="6" md="4">
 													<v-text-field
-														v-model="editedItem.numofpeople"
-														label="프로젝트 참여자 수"
-													></v-text-field>
-												</v-col>
-												<v-col cols="12" sm="6" md="4">
-													<v-text-field
-														v-model="editedItem.date"
+														v-model="newModel.date"
 														label="프로젝트 착수/종료일자"
 													></v-text-field>
 												</v-col>
 												<v-col cols="12" sm="6" md="4">
-													<v-text-field v-model="editedItem.client" label="발주처"></v-text-field>
-												</v-col>
-												<v-col cols="12" sm="6" md="4">
-													<v-text-field v-model="editedItem.pm_name" label="담당자"></v-text-field>
+													<v-text-field v-model="newModel.client" label="발주처"></v-text-field>
 												</v-col>
 											</v-row>
 										</v-container>
 									</v-card-text>
 									<v-card-actions>
 										<v-spacer></v-spacer>
-										<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-										<v-btn color="blue darken-1" text @click="save">Save</v-btn>
+										<v-btn color="blue darken-1" text @click="onClose">Cancel</v-btn>
+										<v-btn color="blue darken-1" text @click="onSave">Save</v-btn>
 									</v-card-actions>
 								</v-card>
 							</v-dialog>
@@ -70,10 +55,10 @@
 					<template v-slot:item.edit="{ item }">
 						<v-btn icon @click="onEdit(item)">수정<v-icon>mdi-pencil</v-icon></v-btn>
 					</template>
-					<template v-slot:item.termination
+					<template v-slot:item.termination="{ item }"
 						><v-btn @click="onTermination(item)">종료</v-btn></template
 					>
-					<template v-slot:item.projectpage
+					<template v-slot:item.projectpage="{ item }"
 						><v-btn @click="onProjectpage(item)">프로젝트 페이지 바로가기</v-btn></template
 					>
 				</v-data-table>
@@ -91,6 +76,16 @@ export default {
 		MyFooter,
 	},
 	data: () => ({
+		ornts: [],
+		selectedIdx: -1,
+		newModel: {
+			number: 0,
+			name: "",
+			numofpeople: 0,
+			date: "",
+			client: "",
+			pm_name: "",
+		},
 		project_manage_page: [
 			{
 				number: 1111,
@@ -121,49 +116,61 @@ export default {
 			{ text: "프로젝트 페이지 바로가기", value: "projectpage", sortable: false },
 		],
 		dialog: false,
-		editedIndex: -1,
-		editedItem: {
-			number: 0,
-			name: "",
-			numofpeople: 0,
-			date: "",
-			client: "",
-			pm_name: "",
-		},
 	}),
 	computed: {
 		formTitle() {
 			return this.editedIndex === -1 ? "New Item" : "Edit Item";
 		},
 	},
-	watch: {
-		dialog(val) {
-			val || this.close();
-		},
-	},
 	methods: {
+		onAdd() {},
 		onEdit(item) {
-			this.editedIndex = this.project_manage_page.indexOf(item);
-			this.editedItem = Object.assign({}, item);
+			this.selectedIdx = this.project_manage_page.indexOf(item);
+			this.newModel = Object.assign({}, item);
 			this.dialog = true;
 		},
-		onTermination() {},
-		onProjectpage() {},
-		close() {
+		onTermination(item) {
+			// patch item to end today
+			console.log(item);
+		},
+		onProjectpage(item) {
+			this.$router.push(`/projectdetailpage/${item.number}`);
+		},
+		onClose() {
 			this.dialog = false;
-			this.$nextTick(() => {
-				this.editedItem = Object.assign({}, this.defaultItem);
-				this.editedIndex = -1;
+		},
+		onSave() {
+			this.$axios
+				.patch(`/api/proj/${this.newModel.number}`, this.newModel)
+				.then(() => {
+					this.getProjs();
+				})
+				.catch(err => {
+					console.log(err);
+				});
+			this.dialog = false;
+		},
+		getProjs() {
+			this.$axios
+				.get("/api/proj")
+				.then(projs => {
+					this.project_manage_page = projs.data;
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+	},
+	mounted() {
+		this.getProjs();
+		this.$axios
+			.get("/api/ornt")
+			.then(ornts => {
+				this.ornts = ornts.data;
+			})
+			.catch(err => {
+				console.log(err);
 			});
-		},
-		save() {
-			if (this.editedIndex > -1) {
-				Object.assign(this.project_manage_page[this.editedIndex], this.editedItem);
-			} else {
-				this.project_manage_page.push(this.editedItem);
-			}
-			this.close();
-		},
 	},
 };
 </script>

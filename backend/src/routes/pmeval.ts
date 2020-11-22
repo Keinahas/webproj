@@ -105,7 +105,7 @@ router.get("/participants/:projSN", async function(req, res) {
 		// check if assessee is evaled
 		let _eval = await createQueryBuilder(Eval)
 			.innerJoinAndSelect(PMEval, "PMEval", "PMEval.EVAL_SN = eval.EVAL_SN")
-			.where("eval.PROJ_SN: :proj_no", { proj_no: req.params.projSN })
+			.where("eval.PROJ_SN = :proj_no", { proj_no: req.params.projSN })
 			.andWhere("eval.ASSESSEE_NO = :emp_no", { emp_no: participant.EMP_SN })
 			.getOne();
 		if (_eval) {

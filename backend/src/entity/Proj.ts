@@ -45,7 +45,7 @@ export class Proj {
 		ornt => ornt.ORNT_SN,
 	)
 	@JoinColumn({ name: "ORNT_SN", referencedColumnName: "ORNT_SN" })
-	ORNT_SN: Ornt;
+	ORNT_SN: number;
 
 	@ManyToMany(() => Emp)
 	@JoinTable({

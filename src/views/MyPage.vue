@@ -25,7 +25,7 @@
 					<v-text-field
 						v-model="empModel.password"
 						:rules="[v => !!v || 'required', v => !!v && v.length < 20]"
-						label="Password"
+						label="비밀번호"
 						type="password"
 						required
 					></v-text-field>
@@ -127,6 +127,16 @@ export default {
 					console.log(err);
 				});
 			this.$refs.empModel.resetValidation();
+		},
+		save() {
+			this.$axios
+				.patch(`/api/users/${this.$store.state.sn}`)
+				.then(() => {
+					this.getEmp();
+				})
+				.catch(err => {
+					console.log(err);
+				});
 		},
 	},
 };

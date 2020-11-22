@@ -15,7 +15,7 @@
 				<br />
 				<v-data-table
 					:headers="headers"
-					:items="emp"
+					:items="emps"
 					:items-per-page="10"
 					:search="search"
 					style="width: 100%"
@@ -93,46 +93,38 @@
 
 <script>
 export default {
-	data() {
-		return {
-			search: "",
-			headers: [
-				{
-					text: "직원번호",
-					value: "emp_sn",
-					align: "center",
-				},
-				{ text: "직원명", value: "emp_nm" },
-				{ text: "주민등록번호", value: "rgst_no" },
-				{ text: "최종학력", value: "last_acdmcr" },
-				{ text: "사원분류", value: "emp_t" },
-				{ text: "경력", value: "career" },
-				{ text: "기술등급", value: "tch_sn" },
-				{ text: "직무", value: "proj_dty" },
-			],
-			emp: [
-				{
-					emp_sn: "1",
-					emp_nm: "이지유",
-					rgst_no: "9901112000001",
-					last_acdmcr: "수원대",
-					emp_t: "개발자",
-					career: "5",
-					tch_sn: "아",
-					proj_dty: "PM",
-				},
-				{
-					emp_sn: "2",
-					emp_nm: "???",
-					rgst_no: "9901112000002",
-					last_acdmcr: "아...",
-					emp_t: "???",
-					career: "5",
-					tch_sn: "아",
-					proj_dty: ",,",
-				},
-			],
-		};
+	mounted() {
+		this.getEmps();
+	},
+	data: () => ({
+		search: "",
+		headers: [
+			{
+				text: "직원번호",
+				value: "emp_sn",
+				align: "center",
+			},
+			{ text: "직원명", value: "emp_nm" },
+			{ text: "주민등록번호", value: "rgst_no" },
+			{ text: "최종학력", value: "last_acdmcr" },
+			{ text: "사원분류", value: "emp_t" },
+			{ text: "경력", value: "career" },
+			{ text: "기술등급", value: "tch_sn" },
+			{ text: "직무", value: "proj_dty" },
+		],
+		emps: [],
+	}),
+	methods: {
+		getEmps() {
+			this.$axios
+				.get("/api/users")
+				.then(result => {
+					this.emps = result.data;
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
 	},
 };
 </script>

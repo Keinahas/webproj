@@ -23,7 +23,7 @@
 								</v-col>
 								<v-col cols="12" class="pt-0 pb-0">
 									<v-text-field
-										label="Password"
+										label="비밀번호"
 										type="password"
 										prepend-icon="mdi-lock"
 										v-model="regModel.password"

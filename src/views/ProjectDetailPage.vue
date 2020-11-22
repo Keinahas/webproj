@@ -6,11 +6,9 @@
 				<h1 align="center">프로젝트 상세 페이지</h1>
 				<br />
 			</v-col>
-			<v-progress-linear
-				background-color="#030712"
-				color="secondary"
-				value="30"
-			></v-progress-linear>
+			<v-col cols="12"></v-col>
+			<v-progress-linear background-color="#030712" color="primary" value="30"></v-progress-linear>
+			<v-col cols="12"></v-col>
 			<v-col cols="12">
 				<v-data-table :headers="proj_headers" :items="project" hide-default-footer>
 					<v-toolbar flat>
@@ -26,11 +24,9 @@
 					>
 				</v-data-table>
 			</v-col>
-			<v-progress-linear
-				background-color="#030712"
-				color="secondary"
-				value="30"
-			></v-progress-linear>
+			<v-col cols="12"></v-col>
+			<v-progress-linear background-color="#030712" color="primary" value="30"></v-progress-linear>
+			<v-col cols="12"></v-col>
 			<br />
 			<v-col cols="12">
 				<v-data-table :headers="headers" :items="project_detail_page">
@@ -77,11 +73,9 @@
 					>
 				</v-data-table>
 			</v-col>
-			<v-progress-linear
-				background-color="#030712"
-				color="secondary"
-				value="30"
-			></v-progress-linear>
+			<v-col cols="12"></v-col>
+			<v-progress-linear background-color="#030712" color="primary" value="30"></v-progress-linear>
+			<v-col cols="12"></v-col>
 			<br />
 			<v-col cols="12"></v-col>
 			<v-col cols="12"></v-col>

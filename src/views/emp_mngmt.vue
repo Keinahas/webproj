@@ -7,7 +7,7 @@
 					<br />
 				</v-col>
 				<v-progress-linear
-					background-color="secondary"
+					background-color="primary"
 					color="#030712"
 					value="30"
 				></v-progress-linear>
@@ -42,7 +42,7 @@
 				</v-row>
 				<v-col cols="12"></v-col>
 				<v-progress-linear
-					background-color="secondary"
+					background-color="primary"
 					color="#030712"
 					value="30"
 				></v-progress-linear>

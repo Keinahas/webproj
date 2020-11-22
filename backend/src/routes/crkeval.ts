@@ -2,7 +2,7 @@ import * as express from "express";
 const router = express.Router();
 import { createQueryBuilder, getManager, getRepository } from "typeorm";
 import { Emp, EmpDvlpr } from "../entity/Emp";
-import { Eval, PMEval } from "../entity/Eval";
+import { CrkEval, Eval } from "../entity/Eval";
 import { ProjParticipant } from "../entity/ProjParticipant";
 
 /* GET projs listing. */
@@ -37,7 +37,7 @@ router.post("/", function(req, res) {
 	_eval.COMM_ABLTY_EVAL_CN = req.body.COMM_ABLTY_EVAL_CN;
 	_eval.ASSESSEE_NO = req.body.ASSESSEE_NO;
 
-	let pmEval = new PMEval();
+	let pmEval = new CrkEval();
 	_eval.PROJ_SN = req.body.PROJ_SN;
 	pmEval.EVAL_MAN_NO = req.body.EVAL_MAN_NO;
 
@@ -104,7 +104,7 @@ router.get("/participants/:projSN", async function(req, res) {
 
 		// check if assessee is evaled
 		let _eval = await createQueryBuilder(Eval)
-			.innerJoinAndSelect(PMEval, "PMEval", "PMEval.EVAL_SN = eval.EVAL_SN")
+			.innerJoinAndSelect(CrkEval, "CRKEval", "CRKEval.EVAL_SN = eval.EVAL_SN")
 			.where("eval.PROJ_SN: :proj_no", { proj_no: req.params.projSN })
 			.andWhere("eval.ASSESSEE_NO = :emp_no", { emp_no: participant.EMP_SN })
 			.getOne();
@@ -118,4 +118,4 @@ router.get("/participants/:projSN", async function(req, res) {
 	});
 });
 
-export { router as pmevalRouter };
+export { router as crkRouter };

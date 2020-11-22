@@ -1,8 +1,10 @@
-const express = require("express");
+import * as express from "express";
 const router = express.Router();
+import { getRepository } from "typeorm";
+import { Emp } from "../entity/Emp";
 // const bcrypt = require("bcrypt");
 
-router.post("/", function(req, res) {
+router.post("/", async function(req, res) {
 	console.log(req.body);
 	let emp = {
 		LOGIN_ID: req.body.id,
@@ -12,22 +14,32 @@ router.post("/", function(req, res) {
 		RGST_NO: req.body.rgst_no,
 	};
 
-	global.connection
-		.createQueryBuilder()
-		.insert()
-		.into("EMP")
-		.values(emp)
-		.execute()
+	getRepository(Emp)
+		.save(emp)
 		.then(result => {
-			console.log("Post has been saved: ", result);
-			console.log("Now lets load all posts: ");
-			res.sendStatus(500);
+			console.log(result);
+			return res.status(500).send(result);
 		})
 		.catch(err => {
-			console.log("DEBUG", new Error().stack.split("at ")[1].trim());
-			console.log(err);
-			res.sendStatus(500);
+			return res.sendStatus(500);
 		});
+
+	// getConnection()
+	// 	.createQueryBuilder()
+	// 	.insert()
+	// 	.into(Emp)
+	// 	.values(emp)
+	// 	.execute()
+	// 	.then(result => {
+	// 		console.log("Post has been saved: ", result);
+	// 		console.log("Now lets load all posts: ");
+	// 		res.sendStatus(500);
+	// 	})
+	// 	.catch(err => {
+	// 		console.log("DEBUG", new Error().stack.split("at ")[1].trim());
+	// 		console.log(err);
+	// 		res.sendStatus(500);
+	// 	});
 	// let empRepository = global.connection.getRepository("EMP");
 	// empRepository
 	// 	.save(emp)
@@ -58,4 +70,4 @@ router.post("/", function(req, res) {
 	// 	});
 });
 
-module.exports = router;
+export { router as registerRouter };

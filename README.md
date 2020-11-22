@@ -5,7 +5,7 @@
 ```
 
 npm install -g yarn
-yarn global add nodemon
+npm install -g nodemon
 
 ```
 

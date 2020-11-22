@@ -6,12 +6,11 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-<<<<<<< Updated upstream
-=======
 import MyPage from "../views/MyPage.vue";
+import emp_mngmt from "../views/emp_mngmt.vue";
+import AddingPeople from "../views/AddingPeople.vue";
 import ProjectManage from "../views/ProjectManage.vue";
 import ProjectDetailPage from "../views/ProjectDetailPage.vue";
->>>>>>> Stashed changes
 
 Vue.use(VueRouter);
 
@@ -38,11 +37,18 @@ const routes = [
 		component: Register,
 		meta: { forAll: true },
 	},
-<<<<<<< Updated upstream
-=======
 	{
 		path: "/mypage",
 		component: MyPage,
+	},
+
+	{
+		path: "/emp_mngmt",
+		component: emp_mngmt,
+	},
+	{
+		path: "/addingpeople",
+		component: AddingPeople,
 	},
 	{
 		path: "/projectmanage",
@@ -52,7 +58,6 @@ const routes = [
 		path: "/projectdetailpage",
 		component: ProjectDetailPage,
 	},
->>>>>>> Stashed changes
 ];
 
 // router.beforeEach((to, from, next) => {

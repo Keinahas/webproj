@@ -1,0 +1,17 @@
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Proj } from "./Proj";
+
+@Entity({ name: "ORNT" })
+export class Ornt {
+	@PrimaryGeneratedColumn()
+	ORNT_SN: Proj;
+
+	@Column({ length: 20, nullable: false })
+	ORNT_NM: string;
+
+	@OneToMany(
+		() => Proj,
+		proj => proj.ORNT_SN,
+	)
+	projs: Proj[];
+}

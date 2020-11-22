@@ -43,33 +43,67 @@
 			<v-col cols="12">
 				<h2>참여중인 프로젝트</h2>
 			</v-col>
-			<v-col cols="12">
-				<h1>프로젝트01</h1>
-				<h3>2020.10.23</h3>
-				<br />
-				<h3>PM : 김피엠</h3>
-				<br />
+
+			<v-col cols="5">
+				<v-col cols="2"></v-col>
+				<v-col cols="10">
+					<template>
+						<v-card outlined shaped>
+							<v-list-item three-line>
+								<v-list-item-content>
+									<div class="overline pt-2">2020.10.23</div>
+									<v-list-item-title class="headline mb-1">프로젝트01</v-list-item-title>
+									<v-list-item-subtitle>PM : 김피엠</v-list-item-subtitle>
+								</v-list-item-content>
+
+								<v-spacer></v-spacer>
+							</v-list-item>
+						</v-card>
+					</template>
+				</v-col>
 			</v-col>
+			<v-col cols="12"></v-col>
 			<v-col cols="12"></v-col>
 			<v-col cols="12"></v-col>
 			<v-col cols="12">
 				<h2>참여했던 프로젝트</h2>
 			</v-col>
 			<v-col cols="5">
-				<h1>프로젝트02</h1>
-				<h3>2020.00.00</h3>
-				<br />
-				<h3>PM : 이피엠</h3>
-				<br />
+				<v-col cols="2"></v-col>
+				<v-col cols="10">
+					<v-card outlined shaped>
+						<v-list-item three-line>
+							<v-list-item-content>
+								<div class="overline pt-2">2020.00.00</div>
+								<v-list-item-title class="headline mb-1">프로젝트02</v-list-item-title>
+								<v-list-item-subtitle>PM : 이피엠</v-list-item-subtitle>
+							</v-list-item-content>
+
+							<v-spacer></v-spacer>
+						</v-list-item>
+					</v-card>
+				</v-col>
 			</v-col>
+			<v-col cols="1"></v-col>
 			<v-col cols="5">
-				<h1>프로젝트03</h1>
-				<h3>2020.00.00</h3>
-				<br />
-				<h3>PM : 박피엠</h3>
-				<br />
+				<v-col cols="2"></v-col>
+				<v-col cols="10">
+					<v-card outlined shaped>
+						<v-list-item three-line>
+							<v-list-item-content>
+								<div class="overline pt-2">2020.00.00</div>
+								<v-list-item-title class="headline mb-1">프로젝트03</v-list-item-title>
+								<v-list-item-subtitle>PM : 박피엠</v-list-item-subtitle>
+							</v-list-item-content>
+
+							<v-spacer></v-spacer>
+						</v-list-item>
+					</v-card>
+				</v-col>
 			</v-col>
-			<v-col cols="2">
+			<v-col cols="1">
+				<br />
+				<br />
 				<br />
 				<br />
 				<br />
@@ -79,6 +113,7 @@
 					><v-icon left>mdi-account-circle</v-icon>More</v-btn
 				>
 			</v-col>
+			<v-col cols="12"></v-col>
 		</v-row>
 		<MyFooter></MyFooter>
 	</v-container>

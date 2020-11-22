@@ -6,9 +6,16 @@
 			</template>
 			<v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-			<v-toolbar-title class="text-uppercase white--text" @click="goMain">
+			<v-toolbar-title class="text-uppercase white--text ma-2" @click="goMain">
 				<span><h3>Database Design</h3></span>
 			</v-toolbar-title>
+			<v-toolbar-title v-if="role" class="text-uppercase white--text ma-2" @click="goProjectManage">
+				<span><h3>프로젝트 관리</h3></span>
+			</v-toolbar-title>
+			<v-toolbar-title v-if="role" class="text-uppercase white--text ma-2" @click="goEmpManage">
+				<span><h3>직원 관리</h3></span>
+			</v-toolbar-title>
+
 			<v-spacer></v-spacer>
 			<v-btn v-if="!userId" class="ma-2" outlined color="secondary" to="register"
 				><v-icon left>mdi-login</v-icon>Register</v-btn
@@ -37,6 +44,12 @@ export default {
 	methods: {
 		goMain() {
 			this.$router.push("/");
+		},
+		goProjectManage() {
+			this.$router.push("/ProjectManage");
+		},
+		goEmpManage() {
+			this.$router.push("/emp_mngmt");
 		},
 	},
 	components: {},

@@ -27,11 +27,17 @@ import { usersRouter } from "./routes/users";
 import { authRouter } from "./routes/auth";
 import { registerRouter } from "./routes/register";
 import { projRouter } from "./routes/projs";
+import { pmevalRouter } from "./routes/pmeval";
+import { crkRouter } from "./routes/crkeval";
+import { participantRouter } from "./routes/participants";
 
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/register", registerRouter);
 app.use("/proj", projRouter);
+app.use("/pmeval", pmevalRouter);
+app.use("/crkeval", crkRouter);
+app.use("/participants", participantRouter);
 
 // start express server
 app.listen(3000);

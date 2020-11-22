@@ -187,7 +187,7 @@ export default {
 
 				// get eval
 				this.$axios
-					.get(`/api/eval/${this.selectedParticipant.EVAL_SN}`)
+					.get(`/api/pmeval/${this.selectedParticipant.EVAL_SN}`)
 					.then(__eval => {
 						this.newEvalModel = __eval;
 					})
@@ -213,7 +213,7 @@ export default {
 		onSave() {
 			if (this.editFlag) {
 				// just save
-				this.$axios.patch(`/api/eval/${this.selectedParticipant.EVAL_SN}`).catch(err => {
+				this.$axios.patch(`/api/pmeval/${this.selectedParticipant.EVAL_SN}`).catch(err => {
 					console.log(err);
 				});
 			} else {
@@ -221,7 +221,7 @@ export default {
 				PMEvalModel.EVAL_MAN_NO = this.selectedParticipant.EMP_SN;
 
 				// create
-				this.$axios.post(`/api/eval/`, PMEvalModel).catch(err => {
+				this.$axios.post(`/api/pmeval/`, PMEvalModel).catch(err => {
 					console.log(err);
 				});
 				this.participants.forEach(participant => {
@@ -232,7 +232,7 @@ export default {
 		},
 		getParticipants() {
 			this.$axios
-				.get("/api/participants")
+				.get(`/api/pmeval/participants/${this.$store.state.projSN}`)
 				.then(emps => {
 					this.participants = emps;
 				})

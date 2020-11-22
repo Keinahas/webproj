@@ -28,7 +28,7 @@ export class Eval {
 	@Column({ type: "int", nullable: false })
 	@ManyToOne(() => Emp)
 	@JoinColumn({ name: "ASSESSEE_NO", referencedColumnName: "EMP_SN" })
-	ASSESSEE_NO: Emp;
+	ASSESSEE_NO: number;
 
 	@Column({ nullable: false })
 	JOB_EXC_GRD: number;
@@ -72,7 +72,7 @@ export class OrntEval {
 	PROJ_SN: number;
 
 	@PrimaryColumn({ type: "int" })
-	@OneToOne(() => Eval)
+	@OneToOne(() => Eval, { cascade: ["insert"] })
 	@JoinColumn({ name: "EVAL_SN", referencedColumnName: "EVAL_SN" })
 	EVAL_SN: number;
 
@@ -93,7 +93,7 @@ export class PMEval {
 	PROJ_SN: number;
 
 	@PrimaryColumn({ type: "int" })
-	@OneToOne(() => Eval)
+	@OneToOne(() => Eval, { cascade: ["insert"] })
 	@JoinColumn({ name: "EVAL_SN", referencedColumnName: "EVAL_SN" })
 	EVAL_SN: number;
 
@@ -114,7 +114,7 @@ export class CrkEval {
 	PROJ_SN: number;
 
 	@PrimaryColumn({ type: "int" })
-	@OneToOne(() => Eval)
+	@OneToOne(() => Eval, { cascade: ["insert"] })
 	@JoinColumn({ name: "EVAL_SN", referencedColumnName: "EVAL_SN" })
 	EVAL_SN: number;
 

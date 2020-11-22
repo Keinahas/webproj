@@ -1,19 +1,58 @@
 import * as express from "express";
 const router = express.Router();
-import * as authModule from "../modules/auth";
 import { getRepository } from "typeorm";
 import { Emp } from "../entity/Emp";
+import * as authModule from "../modules/auth";
 
-router.post("/", async function(req, res) {
+router.post("/dupIDChk", function(req, res) {
+	getRepository(Emp)
+		.findOne({ LOGIN_ID: req.body.id })
+		.then(emp => {
+			if (emp === undefined) {
+				return res.sendStatus(204); // No Content
+			} else {
+				return res.sendStatus(200); // Has emp
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			return res.sendStatus(400);
+		});
+});
+
+router.post("/", function(req, res) {
 	getRepository(Emp)
 		.findOne({ LOGIN_ID: req.body.id })
 		.then(emp => {
 			console.log(emp);
-			return res.status(500).send(emp);
+			if (!emp) return res.sendStatus(404);
+			if (emp.PASSWD == req.body.password) {
+				authModule
+					.createToken({
+						id: emp.LOGIN_ID,
+						sn: emp.EMP_SN,
+						name: emp.EMP_NM,
+					})
+					.then(token => {
+						return res
+							.cookie("token", token, {
+								maxAge: 7200000,
+								httpOnly: true,
+							})
+							.status(200)
+							.json({ id: emp.LOGIN_ID, sn: emp.EMP_SN, name: emp.EMP_NM });
+					})
+					.catch(err => {
+						console.log(err);
+						return res.sendStatus(400);
+					});
+			} else {
+				return res.sendStatus(403);
+			}
 		})
 		.catch(err => {
 			console.log(err);
-			return res.sendStatus(500);
+			return res.sendStatus(400);
 		});
 });
 

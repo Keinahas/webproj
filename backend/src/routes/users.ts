@@ -5,7 +5,7 @@ import { Emp } from "../entity/Emp";
 
 /* GET users listing. */
 
-router.get("/:id", async function(req, res) {
+router.get("/:id", function(req, res) {
 	getRepository(Emp)
 		.findOne({ EMP_SN: parseInt(req.params.id) })
 		.then(emp => {
@@ -18,7 +18,7 @@ router.get("/:id", async function(req, res) {
 		});
 });
 
-router.patch("/:id", async function(req, res) {
+router.patch("/:id", function(req, res) {
 	getRepository(Emp)
 		.findOne({ EMP_SN: parseInt(req.params.id) })
 		.then(emp => {

@@ -11,7 +11,7 @@ import { Proj } from "./Proj";
 
 @Entity({ name: "PROJ_PARTICIPANT" })
 export class ProjParticipant {
-	@PrimaryGeneratedColumn({ type: "int" })
+	@PrimaryColumn({ type: "int" })
 	@ManyToOne(
 		() => Proj,
 		emp => emp.PROJ_SN,
@@ -30,7 +30,7 @@ export class ProjParticipant {
 	@Column({ nullable: false })
 	OUTSET_DATE: Date;
 
-	@Column()
+	@Column({ nullable: true })
 	EXC_DATE: Date;
 
 	@Column({ nullable: false, length: 20 })

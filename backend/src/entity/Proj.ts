@@ -24,7 +24,7 @@ export class Proj {
 	@Column({ nullable: false })
 	OUTSET_DATE: Date;
 
-	@Column()
+	@Column({ nullable: true })
 	END_DATE: Date;
 
 	@OneToMany(

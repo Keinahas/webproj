@@ -8,18 +8,4 @@ export class Tch {
 
 	@Column({ length: 20, nullable: false, name: "TCH_NM" })
 	TCH_NM: string;
-
-	@ManyToMany(() => Emp)
-	@JoinTable({
-		name: "EXP_TCH", // table name for the junction table of this relation
-		joinColumn: {
-			name: "EXP_TCH_NO",
-			referencedColumnName: "TCH_SN",
-		},
-		inverseJoinColumn: {
-			name: "EMP_SN",
-			referencedColumnName: "EMP_SN",
-		},
-	})
-	emps: Emp[];
 }

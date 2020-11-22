@@ -13,7 +13,6 @@
 					value="30"
 				></v-progress-linear>
 				<v-col cols="12"></v-col>
-
 				<v-col cols="12">
 					<h3>프로젝트 참여자 목록</h3>
 				</v-col>
@@ -21,6 +20,36 @@
 					<v-data-table :headers="headers" :items="PROJ_PARTICIPANT" class="elevation-1">
 						<template v-slot:item.PROJ_EXC="{ item }">
 							<v-simple-checkbox v-model="item.PROJ_EXC"></v-simple-checkbox>
+						</template>
+						<template v-slot:top>
+							<v-dialog v-model="dialog" max-width="500px">
+								<v-card>
+									<v-container>
+										<v-row>
+											<v-col cols="12" sm="6" md="4"> </v-col>
+											<v-col cols="12" sm="6" md="4">
+												<v-input> 경험기술목록 </v-input>
+											</v-col>
+											<v-col cols="12" sm="6" md="4"> </v-col>
+											<v-col cols="12" sm="6" md="4">
+												<v-spacer></v-spacer>
+												<v-input v-model="ExpTchItem.EXP_TCH">
+													{{ ExpTchItem.EXP_TCH }}
+												</v-input>
+											</v-col>
+										</v-row>
+									</v-container>
+									<v-card-actions>
+										<v-spacer></v-spacer>
+										<v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+									</v-card-actions>
+								</v-card>
+							</v-dialog>
+						</template>
+						<template v-slot:item.EXP_TCH>
+							<v-btn color="gray darken-1" dark class="mb-2" @click="onExpTch(item)"
+								>목록 보기</v-btn
+							>
 						</template>
 					</v-data-table>
 				</v-col>
@@ -33,6 +62,11 @@
 					<v-data-table :headers="headers" :items="EMP" class="elevation-1">
 						<template v-slot:item.PROJ_OUTSET="{ item }">
 							<v-simple-checkbox v-model="item.PROJ_OUTSET"></v-simple-checkbox>
+						</template>
+						<template v-slot:item.EXP_TCH>
+							<v-btn color="gray darken-1" dark class="mb-2" @click="onExpTch(item)"
+								>목록 보기</v-btn
+							>
 						</template>
 					</v-data-table>
 				</v-col>
@@ -110,7 +144,6 @@ export default {
 					PROJ_DTY: "PM",
 					OUTSET_PERIOD: "2019-09-09~",
 					CAREER: 4,
-					EXP_TCH: "기술1, 기술2, 기술4, 기술5",
 					PROJ_EXC: false,
 				},
 				{
@@ -119,7 +152,6 @@ export default {
 					PROJ_DTY: "PL",
 					OUTSET_PERIOD: "2019-10-09~",
 					CAREER: 4,
-					EXP_TCH: "기술3",
 					PROJ_EXC: false,
 				},
 				{
@@ -128,7 +160,6 @@ export default {
 					PROJ_DTY: "프로그래머",
 					OUTSET_PERIOD: "2019-10-09~",
 					CAREER: 6,
-					EXP_TCH: "기술11",
 					PROJ_EXC: false,
 				},
 				{
@@ -137,7 +168,6 @@ export default {
 					PROJ_DTY: "또뭐있더라",
 					OUTSET_PERIOD: "2019-09-09~2019-19-09",
 					CAREER: 3,
-					EXP_TCH: "기술21",
 					PROJ_EXC: false,
 				},
 				{
@@ -146,7 +176,6 @@ export default {
 					PROJ_DTY: "모르겠다",
 					OUTSET_PERIOD: "2019-09-09~",
 					CAREER: 3,
-					EXP_TCH: "기술13",
 					PROJ_EXC: false,
 				},
 				{
@@ -155,7 +184,6 @@ export default {
 					PROJ_DTY: "일단써",
 					OUTSET_PERIOD: "2019-09-09~",
 					CAREER: 1,
-					EXP_TCH: "기술12",
 					PROJ_EXC: false,
 				},
 			],
@@ -166,7 +194,6 @@ export default {
 					PROJ_DTY: "PM",
 					OUTSET_PERIOD: "2019-09-09~",
 					CAREER: 4,
-					EXP_TCH: "기술1, 기술2, 기술4, 기술5",
 					PROJ_OUTSET: false,
 				},
 				{
@@ -175,7 +202,6 @@ export default {
 					PROJ_DTY: "PL",
 					OUTSET_PERIOD: "2019-10-09~",
 					CAREER: 4,
-					EXP_TCH: "기술3",
 					PROJ_OUTSET: false,
 				},
 				{
@@ -184,7 +210,6 @@ export default {
 					PROJ_DTY: "프로그래머",
 					OUTSET_PERIOD: "2019-10-09~",
 					CAREER: 6,
-					EXP_TCH: "기술11",
 					PROJ_OUTSET: false,
 				},
 				{
@@ -193,7 +218,6 @@ export default {
 					PROJ_DTY: "또뭐있더라",
 					OUTSET_PERIOD: "2019-09-09~2019-19-09",
 					CAREER: 3,
-					EXP_TCH: "기술21",
 					PROJ_OUTSET: false,
 				},
 				{
@@ -202,7 +226,6 @@ export default {
 					PROJ_DTY: "현두님 비서",
 					OUTSET_PERIOD: "2019-09-09~",
 					CAREER: 3,
-					EXP_TCH: "배만져주기, 쓰다듬어주기",
 					PROJ_OUTSET: false,
 				},
 				{
@@ -211,7 +234,6 @@ export default {
 					PROJ_DTY: "일단써",
 					OUTSET_PERIOD: "2019-09-09~",
 					CAREER: 1,
-					EXP_TCH: "기술12",
 					PROJ_OUTSET: false,
 				},
 			],
@@ -232,7 +254,19 @@ export default {
 				{ text: "프로젝트 제외", value: "PROJ_EXC" },
 				{ text: "프로젝트 투입", value: "PROJ_OUTSET" },
 			],
+			ExpTchItem: {
+				EXP_TCH: "경험기술1",
+			},
+			dialog: false,
 		};
+	},
+	methods: {
+		onExpTch() {
+			this.dialog = true;
+		},
+		close() {
+			this.dialog = false;
+		},
 	},
 };
 </script>

@@ -81,10 +81,17 @@
 				</v-row>
 			</v-col>
 		</v-row>
+		<MyFooter></MyFooter>
 	</v-container>
 </template>
+
 <script>
+import MyFooter from "../components/MyFooter";
+
 export default {
+	components: {
+		MyFooter,
+	},
 	mounted() {
 		this.getParticipants();
 	},

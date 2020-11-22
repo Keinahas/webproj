@@ -9,6 +9,8 @@ import Register from "../views/Register.vue";
 import MyPage from "../views/MyPage.vue";
 import emp_mngmt from "../views/emp_mngmt.vue";
 import AddingPeople from "../views/AddingPeople.vue";
+import ProjectManage from "../views/ProjectManage.vue";
+import ProjectDetailPage from "../views/ProjectDetailPage.vue";
 
 Vue.use(VueRouter);
 
@@ -39,6 +41,7 @@ const routes = [
 		path: "/mypage",
 		component: MyPage,
 	},
+
 	{
 		path: "/emp_mngmt",
 		component: emp_mngmt,
@@ -46,6 +49,14 @@ const routes = [
 	{
 		path: "/addingpeople",
 		component: AddingPeople,
+	},
+	{
+		path: "/projectmanage",
+		component: ProjectManage,
+	},
+	{
+		path: "/projectdetailpage",
+		component: ProjectDetailPage,
 	},
 ];
 

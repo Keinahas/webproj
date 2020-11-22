@@ -1,11 +1,4 @@
-import {
-	Entity,
-	Column,
-	PrimaryGeneratedColumn,
-	PrimaryColumn,
-	ManyToOne,
-	JoinColumn,
-} from "typeorm";
+import { Entity, Column, PrimaryColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Emp } from "./Emp";
 import { Proj } from "./Proj";
 
@@ -14,7 +7,7 @@ export class ProjParticipant {
 	@PrimaryColumn({ type: "int" })
 	@ManyToOne(
 		() => Proj,
-		emp => emp.PROJ_SN,
+		proj => proj.PROJ_SN,
 	)
 	@JoinColumn({ name: "PROJ_SN", referencedColumnName: "PROJ_SN" })
 	PROJ_SN: number;

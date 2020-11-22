@@ -43,11 +43,17 @@
 				</v-card>
 			</v-col>
 		</v-row>
+		<MyFooter></MyFooter>
 	</v-container>
 </template>
 
 <script>
+import MyFooter from "../components/MyFooter";
+
 export default {
+	components: {
+		MyFooter,
+	},
 	data: () => ({
 		idError: false,
 		passError: false,

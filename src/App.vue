@@ -1,9 +1,6 @@
 <template>
 	<v-app>
 		<v-app-bar dark app src="https://i.ibb.co/BHDhCqk/background.jpg">
-			<template v-slot:img="{ props }">
-				<v-img v-bind="props" gradient="to top right, rgba(0,0,0,.7), rgba(25,32,72,.7)"></v-img>
-			</template>
 			<v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
 			<v-toolbar-title class="text-uppercase white--text ma-2" @click="goMain">

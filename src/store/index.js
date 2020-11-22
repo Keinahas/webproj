@@ -11,6 +11,7 @@ export default new Vuex.Store({
 		name: "",
 		role: "",
 		sn: "", // Serial Number
+		projSN: "", // Serial Number
 	},
 	mutations: {
 		login(state, userModel) {
@@ -24,8 +25,12 @@ export default new Vuex.Store({
 			state.name = "";
 			state.role = "";
 			state.sn = "";
+			state.projSN = "";
 			Axios.post("/api/auth/logout");
 			Router.push("/");
+		},
+		selectProj(state, projSN) {
+			state.projSN = projSN;
 		},
 	},
 	actions: {},

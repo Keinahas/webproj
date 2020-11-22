@@ -26,10 +26,12 @@ createConnection()
 import { usersRouter } from "./routes/users";
 import { authRouter } from "./routes/auth";
 import { registerRouter } from "./routes/register";
+import { projRouter } from "./routes/projs";
 
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/register", registerRouter);
+app.use("/proj", projRouter);
 
 // start express server
 app.listen(3000);

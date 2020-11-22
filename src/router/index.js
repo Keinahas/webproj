@@ -12,7 +12,7 @@ import AddingPeople from "../views/AddingPeople.vue";
 import ProjectManage from "../views/ProjectManage.vue";
 import ProjectDetailPage from "../views/ProjectDetailPage.vue";
 import mngmt_eval from "../views/mngmt_eval.vue";
-import pmeval from "../views/pmeval.vue";
+import CRK_Eval from "../views/CRK_Eval.vue";
 
 Vue.use(VueRouter);
 
@@ -65,8 +65,8 @@ const routes = [
 		component: mngmt_eval,
 	},
 	{
-		path: "/pmeval",
-		component: pmeval,
+		path: "/CRK_Eval",
+		component: CRK_Eval,
 	},
 ];
 

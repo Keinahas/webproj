@@ -9,14 +9,17 @@
 							<v-row>
 								<v-col cols="12" class="pt-0 pb-0">
 									<v-text-field
+										id="idfield"
 										label="id"
 										v-model="regModel.id"
 										prepend-icon="mdi-account-circle"
-										:rules="[
-											v => !!v || 'Required',
-											v => (!!v && !idError) || '아이디가 틀렸습니다',
-										]"
-									></v-text-field>
+										:rules="[v => !!v || 'Required', v => (v && !idDup) || '아이디 중복입니다']"
+										@change="resetDupChkIcon"
+									>
+										<v-btn icon slot="append" @click="onChkDupID">
+											<v-icon :color="dupChkIconColor">{{ dupChkIcon }}</v-icon>
+										</v-btn>
+									</v-text-field>
 								</v-col>
 								<v-col cols="12" class="pt-0 pb-0">
 									<v-text-field
@@ -25,10 +28,7 @@
 										prepend-icon="mdi-lock"
 										v-model="regModel.password"
 										@keydown.enter="onRegister"
-										:rules="[
-											v => !!v || 'Required',
-											v => (!!v && !passError) || '비밀번호가 틀렸습니다',
-										]"
+										:rules="[v => !!v || 'Required']"
 									></v-text-field>
 								</v-col>
 								<v-col cols="12" class="pt-0 pb-0">
@@ -72,21 +72,52 @@
 <script>
 export default {
 	data: () => ({
+		idDup: false,
+		dupChkIconColor: undefined,
+		dupChkIcon: "mdi-help-circle-outline",
 		regModel: {},
 	}),
 	methods: {
+		resetDupChkIcon() {
+			this.dupChkIcon = "mdi-help-circle-outline";
+			this.dupChkIconColor = undefined;
+		},
+		onChkDupID() {
+			if (!this.regModel.id.trim()) return;
+			this.$axios
+				.post("/api/auth/dupIDChk", this.regModel)
+				.then(res => {
+					console.log("Register.vue: " + res.status);
+					switch (res.status) {
+						case 200: // has emp
+							this.dupChkIcon = "mdi-alert-circle-outline";
+							this.dupChkIconColor = "red";
+							this.idDup = true;
+							break;
+						case 204: // No emp
+							this.dupChkIcon = "mdi-check-circle-outline";
+							this.dupChkIconColor = "green";
+							this.idDup = false;
+							break;
+					}
+				})
+				.catch(err => {
+					console.log("Register.vue: " + err.response.status);
+					this.dupChkIcon = "mdi-help-circle-outline";
+					this.dupChkIconColor = undefined;
+					this.idDup = false;
+				});
+		},
 		onRegister() {
 			this.$refs.registryForm.resetValidation();
 			this.$axios
 				.post("/api/register", this.regModel)
-				.then(() => {
-					console.log("Success");
-					// this.$store.commit("login", user.data);
+				.then(user => {
+					this.$store.commit("login", user.data);
 					this.$router.push("/");
 				})
 				.catch(err => {
-					console.log(err);
-					console.log(err.response.status);
+					console.log("Register.vue: " + err.response.status);
 					this.$refs.registryForm.validate();
 				});
 		},

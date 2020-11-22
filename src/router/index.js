@@ -11,7 +11,7 @@ import emp_mngmt from "../views/emp_mngmt.vue";
 import AddingPeople from "../views/AddingPeople.vue";
 import ProjectManage from "../views/ProjectManage.vue";
 import ProjectDetailPage from "../views/ProjectDetailPage.vue";
-import PM_Eval from "../views/PM_Eval.vue";
+import mngmt_eval from "../views/mngmt_eval.vue";
 import CRK_Eval from "../views/CRK_Eval.vue";
 
 Vue.use(VueRouter);
@@ -61,8 +61,8 @@ const routes = [
 		component: ProjectDetailPage,
 	},
 	{
-		path: "/PM_Eval",
-		component: PM_Eval,
+		path: "/mngmt_eval",
+		component: mngmt_eval,
 	},
 	{
 		path: "/CRK_Eval",

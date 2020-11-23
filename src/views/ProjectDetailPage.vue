@@ -10,19 +10,10 @@
 			<v-progress-linear background-color="#030712" color="primary" value="30"></v-progress-linear>
 			<v-col cols="12"></v-col>
 			<v-col cols="12">
-				<v-data-table :headers="proj_headers" :items="project" hide-default-footer>
-					<v-toolbar flat>
-						<v-toolbar-title>프로젝트 상세 목록</v-toolbar-title>
-					</v-toolbar>
-					<template v-slot:item.exp_tch>
-						<v-btn color="gray darken-1" dark class="mb-2" @click="onExpTch(item)">목록 보기</v-btn>
-					</template>
-					<template v-slot:item.proj_exclusion="{ item }"
-						><v-btn color="gray darken-1" dark class="mb-2" @click="onProjExclusion(item)"
-							>프로젝트 제외</v-btn
-						></template
-					>
-				</v-data-table>
+				<v-toolbar flat>
+					<v-toolbar-title>프로젝트 상세 목록</v-toolbar-title>
+				</v-toolbar>
+				<v-data-table :headers="proj_headers" :items="project" hide-default-footer> </v-data-table>
 			</v-col>
 			<v-col cols="12"></v-col>
 			<v-progress-linear background-color="#030712" color="primary" value="30"></v-progress-linear>
@@ -43,14 +34,14 @@
 									<v-container>
 										<v-row>
 											<v-col cols="12" sm="6" md="4"> </v-col>
-											<v-col cols="12" sm="6" md="4">
-												<v-input> 경험기술목록 </v-input>
+											<v-col cols="12" align="center">
+												경험기술목록
 											</v-col>
 											<v-col cols="12" sm="6" md="4"> </v-col>
 											<v-col cols="12" sm="6" md="4">
 												<v-spacer></v-spacer>
-												<v-input v-model="ExpTchItem.exp_tch">
-													{{ ExpTchItem.exp_tch }}
+												<v-input v-model="exp_tch">
+													{{ exp_tch }}
 												</v-input>
 											</v-col>
 										</v-row>
@@ -63,11 +54,11 @@
 							</v-dialog>
 						</v-toolbar>
 					</template>
-					<template v-slot:item.exp_tch>
-						<v-btn color="gray darken-1" dark class="mb-2" @click="onExpTch(item)">목록 보기</v-btn>
+					<template v-slot:item.exp_tch="{ item }">
+						<v-btn color="gray darken-1" dark class="my-2" @click="onExpTch(item)">목록 보기</v-btn>
 					</template>
 					<template v-slot:item.proj_exclusion="{ item }"
-						><v-btn color="gray darken-1" dark class="mb-2" @click="onProjExclusion(item)"
+						><v-btn color="gray darken-1" dark class="my-2" @click="onProjExclusion(item)"
 							>프로젝트 제외</v-btn
 						></template
 					>
@@ -80,26 +71,15 @@
 
 <script>
 import MyFooter from "../components/MyFooter";
+
 export default {
 	name: "ProjectDetailPage",
 	components: {
 		MyFooter,
 	},
-	mounted() {
-		// make get req
-		// this.$axios.get(`/api/proj/`);
-	},
+
 	data: () => ({
-		project: [
-			{
-				number: 1111,
-				name: "프로젝트명",
-				numofpeople: 6,
-				date: "프로젝트 착수/종료일자",
-				client: "발주처",
-				pm_name: "담당자",
-			},
-		],
+		project: [],
 		proj_headers: [
 			{ text: "프로젝트 번호", value: "number", sortable: false },
 			{ text: "프로젝트명", value: "name", sortable: false },
@@ -109,20 +89,20 @@ export default {
 			{ text: "담당자", value: "pm_name", sortable: false },
 		],
 		project_detail_page: [
-			{
-				number: 1,
-				name: "직원명",
-				proj_job: "개발자/테스터",
-				date: "투입시기",
-				career: "3년",
-			},
-			{
-				number: 2,
-				name: "직원명1",
-				proj_job: "개발자/테스터1",
-				date: "투입시기",
-				career: "4년",
-			},
+			// {
+			// 	number: 1,
+			// 	name: "직원명",
+			// 	proj_job: "개발자/테스터",
+			// 	date: "투입시기",
+			// 	career: "3년",
+			// },
+			// {
+			// 	number: 2,
+			// 	name: "직원명1",
+			// 	proj_job: "개발자/테스터1",
+			// 	date: "투입시기",
+			// 	career: "4년",
+			// },
 		],
 		headers: [
 			{ text: "직원번호", value: "number" },
@@ -134,23 +114,24 @@ export default {
 			{ text: "프로젝트 제외", value: "proj_exclusion", sortable: false },
 		],
 		dialog: false,
-		ExpTchItem: {
-			exp_tch: "경험기술1",
-		},
+		exp_tch: "경험기술1",
 	}),
 	computed: {
 		formTitle() {
 			return this.editedIndex === -1 ? "New Item" : "Edit Item";
 		},
 	},
-	watch: {
-		dialog(val) {
-			val || this.close();
-		},
-	},
 	methods: {
-		onExpTch() {
+		onExpTch(item) {
 			this.dialog = true;
+			this.$axios
+				.get(`/api/exp_tch/${item.number}`)
+				.then(result => {
+					this.exp_tch = result.data;
+				})
+				.catch(err => {
+					console.log(err);
+				});
 		},
 		onProjExclusion(item) {
 			const index = this.project_detail_page.indexOf(item);
@@ -164,6 +145,21 @@ export default {
 				this.editedIndex = -1;
 			});
 		},
+		getParticipants() {
+			this.$axios
+				.get(`/api/participants/${this.project[0].number}`)
+				.then(res => {
+					this.project_detail_page = res.data;
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+	},
+	mounted() {
+		// make get req
+		this.project.push(this.$store.state.selectedProj);
+		this.getParticipants();
 	},
 };
 </script>

@@ -31,6 +31,7 @@ import { pmevalRouter } from "./routes/pmeval";
 import { crkRouter } from "./routes/crkeval";
 import { participantRouter } from "./routes/participants";
 import { orntRouter } from "./routes/ornt";
+import { expTchRouter } from "./routes/exp_tch";
 
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
@@ -40,6 +41,7 @@ app.use("/pmeval", pmevalRouter);
 app.use("/crkeval", crkRouter);
 app.use("/participants", participantRouter);
 app.use("/ornt", orntRouter);
+app.use("/exp_tch", expTchRouter);
 
 // start express server
 app.listen(3000);

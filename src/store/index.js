@@ -11,8 +11,16 @@ export default new Vuex.Store({
 		name: "",
 		role: "",
 		sn: "", // Serial Number
-		projSN: "", // Serial Number
+		selectedProj: {
+			number: "", // Serial Number
+			name: "",
+			numofpeople: "",
+			date: "",
+			client: "",
+			pm_name: "",
+		},
 	},
+
 	mutations: {
 		login(state, userModel) {
 			state.id = userModel.id;
@@ -25,12 +33,17 @@ export default new Vuex.Store({
 			state.name = "";
 			state.role = "";
 			state.sn = "";
-			state.projSN = "";
+			state.selectedProj = {};
 			Axios.post("/api/auth/logout");
 			Router.push("/");
 		},
-		selectProj(state, projSN) {
-			state.projSN = projSN;
+		selectProj(state, proj) {
+			state.selectedProj.number = proj.number;
+			state.selectedProj.name = proj.name;
+			state.selectedProj.numofpeople = proj.numofpeople;
+			state.selectedProj.date = proj.date;
+			state.selectedProj.client = proj.client;
+			state.selectedProj.pm_name = proj.pm_name;
 		},
 	},
 	actions: {},

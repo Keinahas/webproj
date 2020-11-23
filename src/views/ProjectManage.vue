@@ -18,12 +18,10 @@
 							<v-toolbar-title>프로젝트 관리</v-toolbar-title>
 							<v-divider class="mx-4" inset vertical></v-divider>
 							<v-spacer></v-spacer
-							><v-dialog v-model="dialog" max-width="500px">
-								<template>
-									<v-btn color="blue darken-1" dark class="mb-2" @click="onAdd"
-										>프로젝트 추가</v-btn
-									>
-								</template>
+							><template>
+								<v-btn color="blue darken-1" dark class="mb-2" @click="onAdd">프로젝트 추가</v-btn>
+							</template>
+							<v-dialog v-model="dialog" max-width="500px">
 								<v-card>
 									<v-card-text>
 										<v-container>
@@ -131,10 +129,23 @@ export default {
 		},
 		onTermination(item) {
 			// patch item to end today
-			console.log(item);
+			this.newModel = Object.assign({}, item);
+			this.newModel.date += new Date()
+				.toISOString()
+				.replace("T", " ")
+				.substr(0, 10);
+			this.$axios
+				.patch(`/api/proj/${this.newModel.number}`, this.newModel)
+				.then(() => {
+					this.getProjs();
+				})
+				.catch(err => {
+					console.log(err);
+				});
 		},
 		onProjectpage(item) {
-			this.$router.push(`/projectdetailpage/${item.number}`);
+			this.$store.commit("selectProj", item);
+			this.$router.push("/projectdetailpage/");
 		},
 		onClose() {
 			this.dialog = false;

@@ -20,112 +20,37 @@ router.post("/dupIDChk", function(req, res) {
 		});
 });
 
-router.post("/", function(req, res) {
-	getRepository(Emp)
-		.findOne({ LOGIN_ID: req.body.id })
-		.then(emp => {
-			console.log(emp);
-			if (!emp) return res.sendStatus(404);
-			if (emp.PASSWD == req.body.password) {
-				getRepository(EmpDvlpr)
-					.findOne({ EMP_SN: emp.EMP_SN })
-					.then(empDvlpr => {
-						if (!empDvlpr) {
-							getRepository(EmpMngmtManage)
-								.findOne({ EMP_SN: emp.EMP_SN })
-								.then(manager => {
-									if (!manager) {
-										// not dvlpr nor mngmtmanage
-										authModule
-											.createToken({
-												id: emp.LOGIN_ID,
-												sn: emp.EMP_SN,
-												name: emp.EMP_NM,
-											})
-											.then(token => {
-												return res
-													.cookie("token", token, {
-														maxAge: 7200000,
-														httpOnly: true,
-													})
-													.status(200)
-													.json({
-														id: emp.LOGIN_ID,
-														sn: emp.EMP_SN,
-														name: emp.EMP_NM,
-														role: "Member",
-													});
-											})
-											.catch(err => {
-												console.log(err);
-												return res.sendStatus(400);
-											});
-									} else {
-										authModule
-											.createToken({
-												id: emp.LOGIN_ID,
-												sn: emp.EMP_SN,
-												name: emp.EMP_NM,
-											})
-											.then(token => {
-												return res
-													.cookie("token", token, {
-														maxAge: 7200000,
-														httpOnly: true,
-													})
-													.status(200)
-													.json({
-														id: emp.LOGIN_ID,
-														sn: emp.EMP_SN,
-														name: emp.EMP_NM,
-														role: "Manager",
-													});
-											})
-											.catch(err => {
-												console.log(err);
-												return res.sendStatus(400);
-											});
-									}
-								})
-								.catch(err => {
-									console.log(err);
-									return res.sendStatus(400);
-								});
-						} else {
-							// empDvlpr
-							authModule
-								.createToken({
-									id: emp.LOGIN_ID,
-									sn: emp.EMP_SN,
-									name: emp.EMP_NM,
-								})
-								.then(token => {
-									return res
-										.cookie("token", token, {
-											maxAge: 7200000,
-											httpOnly: true,
-										})
-										.status(200)
-										.json({
-											id: emp.LOGIN_ID,
-											sn: emp.EMP_SN,
-											name: emp.EMP_NM,
-											role: "Developer",
-										});
-								})
-								.catch(err => {
-									console.log(err);
-									return res.sendStatus(400);
-								});
-						}
-					})
-					.catch(err => {
-						console.log(err);
-						return res.sendStatus(400);
-					});
-			} else {
-				return res.sendStatus(403);
-			}
+router.post("/", async function(req, res) {
+	let emp = await getRepository(Emp).findOne({ LOGIN_ID: req.body.id });
+	let manager = await getRepository(EmpMngmtManage).findOne({ EMP_SN: emp.EMP_SN });
+	let dev = await getRepository(EmpDvlpr).findOne({ EMP_SN: emp.EMP_SN });
+
+	let role = "Member";
+	if (manager) {
+		role = "Manager";
+	} else if (dev) {
+		role = "Developer";
+	}
+
+	authModule
+		.createToken({
+			id: emp.LOGIN_ID,
+			sn: emp.EMP_SN,
+			name: emp.EMP_NM,
+		})
+		.then(token => {
+			return res
+				.cookie("token", token, {
+					maxAge: 7200000,
+					httpOnly: true,
+				})
+				.status(200)
+				.json({
+					id: emp.LOGIN_ID,
+					sn: emp.EMP_SN,
+					name: emp.EMP_NM,
+					role: role,
+				});
 		})
 		.catch(err => {
 			console.log(err);

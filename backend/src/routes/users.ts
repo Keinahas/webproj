@@ -1,7 +1,7 @@
 import * as express from "express";
 const router = express.Router();
 import { getRepository } from "typeorm";
-import { Emp, EmpDvlpr } from "../entity/Emp";
+import { Emp, EmpDvlpr, EmpMarkt, EmpMngmtManage } from "../entity/Emp";
 
 /* GET users listing. */
 
@@ -19,8 +19,9 @@ router.get("/", async function(req, res) {
 			career: "0",
 		};
 		let dev = await getRepository(EmpDvlpr).findOne(opt);
-		if (!dev) {
-			// not emp_dvlpr
+		let manager = await getRepository(EmpMngmtManage).findOne(opt);
+		if (!dev && !manager) {
+			// not emp_dvlpr and manager
 			t[idx].career = "-";
 		} else {
 			t[idx].emp_t = "개발자";

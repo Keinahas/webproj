@@ -54,9 +54,9 @@ router.get("/", async function(req, res) {
 	});
 });
 
-router.get("/:id", function(req, res) {
+router.get("/:projSN", function(req, res) {
 	getRepository(Proj)
-		.findOne({ PROJ_SN: parseInt(req.params.id) })
+		.findOne({ PROJ_SN: parseInt(req.params.projSN) })
 		.then(proj => {
 			console.log(proj);
 			let temp = {};

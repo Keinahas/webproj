@@ -6,10 +6,18 @@
 			<v-toolbar-title class="text-uppercase white--text ma-2" @click="goMain">
 				<span><h3>Database Design</h3></span>
 			</v-toolbar-title>
-			<v-toolbar-title v-if="role" class="text-uppercase white--text ma-2" @click="goProjectManage">
+			<v-toolbar-title
+				v-if="isManager"
+				class="text-uppercase white--text ma-2"
+				@click="goProjectManage"
+			>
 				<span><h3>프로젝트 관리</h3></span>
 			</v-toolbar-title>
-			<v-toolbar-title v-if="role" class="text-uppercase white--text ma-2" @click="goEmpManage">
+			<v-toolbar-title
+				v-if="isManager"
+				class="text-uppercase white--text ma-2"
+				@click="goEmpManage"
+			>
 				<span><h3>직원 관리</h3></span>
 			</v-toolbar-title>
 
@@ -53,6 +61,12 @@ export default {
 	computed: {
 		userId() {
 			return this.$store.state.id;
+		},
+		isManager() {
+			return this.$store.state.role == "Manager";
+		},
+		isDvlpr() {
+			return this.$store.state.role == "Developer";
 		},
 		role() {
 			return this.$store.state.role;

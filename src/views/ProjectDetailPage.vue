@@ -88,22 +88,7 @@ export default {
 			{ text: "발주처", value: "client", sortable: false },
 			{ text: "담당자", value: "pm_name", sortable: false },
 		],
-		project_detail_page: [
-			// {
-			// 	number: 1,
-			// 	name: "직원명",
-			// 	proj_job: "개발자/테스터",
-			// 	date: "투입시기",
-			// 	career: "3년",
-			// },
-			// {
-			// 	number: 2,
-			// 	name: "직원명1",
-			// 	proj_job: "개발자/테스터1",
-			// 	date: "투입시기",
-			// 	career: "4년",
-			// },
-		],
+		project_detail_page: [],
 		headers: [
 			{ text: "직원번호", value: "number" },
 			{ text: "직원명", value: "name" },
@@ -147,7 +132,7 @@ export default {
 		},
 		getParticipants() {
 			this.$axios
-				.get(`/api/participants/${this.project[0].number}`)
+				.get(`/api/participants/proj/${this.project[0].number}`)
 				.then(res => {
 					this.project_detail_page = res.data;
 				})

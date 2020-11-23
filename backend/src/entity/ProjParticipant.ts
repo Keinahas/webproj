@@ -10,7 +10,7 @@ export class ProjParticipant {
 		proj => proj.PROJ_SN,
 	)
 	@JoinColumn({ name: "PROJ_SN", referencedColumnName: "PROJ_SN" })
-	PROJ_SN: number;
+	PROJ_SN: Proj;
 
 	@PrimaryColumn({ type: "int" })
 	@ManyToOne(

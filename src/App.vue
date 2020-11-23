@@ -22,13 +22,13 @@
 			</v-toolbar-title>
 
 			<v-spacer></v-spacer>
-			<v-btn v-if="!userId" class="ma-2" outlined color="secondary" to="register"
+			<v-btn v-if="!userId" class="ma-2" outlined color="secondary" @click="goRegister"
 				><v-icon left>mdi-login</v-icon>Register</v-btn
 			>
-			<v-btn v-else class="ma-2" outlined color="secondary" to="mypage"
+			<v-btn v-else class="ma-2" outlined color="secondary" @click="goMyPage"
 				><v-icon left>mdi-account-circle</v-icon>MyPage</v-btn
 			>
-			<v-btn v-if="!userId" class="ma-2" outlined color="secondary" to="login"
+			<v-btn v-if="!userId" class="ma-2" outlined color="secondary" @click="goLogin"
 				><v-icon left>mdi-login</v-icon>Login</v-btn
 			>
 			<v-btn v-else class="ma-2" outlined color="secondary" @click="$store.commit('logout')"
@@ -55,6 +55,15 @@ export default {
 		},
 		goEmpManage() {
 			this.$router.push("/emp_mngmt");
+		},
+		goLogin() {
+			this.$router.push("/login");
+		},
+		goRegister() {
+			this.$router.push("/register");
+		},
+		goMyPage() {
+			this.$router.push("/mypage");
 		},
 	},
 	components: {},

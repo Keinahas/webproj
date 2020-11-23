@@ -44,39 +44,41 @@
 				<h2>참여중인 프로젝트</h2>
 			</v-col>
 
-			<v-col cols="5">
+			<v-col cols="5" v-for="item in onGoingProjs" :key="item.PROJ_SN">
 				<v-col cols="2"></v-col>
 				<v-col cols="10">
 					<template>
-						<v-card outlined shaped>
+						<v-card outlined shaped @click="onSelectProj(item)">
 							<v-list-item three-line>
 								<v-list-item-content>
-									<div class="overline pt-2">2020.10.23</div>
-									<v-list-item-title class="headline mb-1">프로젝트01</v-list-item-title>
-									<v-list-item-subtitle>PM : 김피엠</v-list-item-subtitle>
+									<div class="overline pt-2">
+										{{ item.OUTSET_DATE }}
+									</div>
+									<v-list-item-title class="headline mb-1">{{ item.name }}</v-list-item-title>
+									<v-list-item-subtitle>PM : {{ item.pm_nm }}</v-list-item-subtitle>
 								</v-list-item-content>
-
 								<v-spacer></v-spacer>
 							</v-list-item>
 						</v-card>
 					</template>
 				</v-col>
 			</v-col>
+
 			<v-col cols="12"></v-col>
 			<v-col cols="12"></v-col>
 			<v-col cols="12"></v-col>
 			<v-col cols="12">
 				<h2>참여했던 프로젝트</h2>
 			</v-col>
-			<v-col cols="5">
+			<v-col cols="6" v-for="item in finishedProjs" :key="item.PROJ_SN">
 				<v-col cols="2"></v-col>
 				<v-col cols="10">
-					<v-card outlined shaped>
+					<v-card outlined shaped @click="onSelectProj(item)">
 						<v-list-item three-line>
 							<v-list-item-content>
-								<div class="overline pt-2">2020.00.00</div>
-								<v-list-item-title class="headline mb-1">프로젝트02</v-list-item-title>
-								<v-list-item-subtitle>PM : 이피엠</v-list-item-subtitle>
+								<div class="overline pt-2">{{ item.OUTSET_DATE + " ~ " + item.END_DATE }}</div>
+								<v-list-item-title class="headline mb-1">{{ item.name }}</v-list-item-title>
+								<v-list-item-subtitle>PM : {{ item.pm_nm }}</v-list-item-subtitle>
 							</v-list-item-content>
 
 							<v-spacer></v-spacer>
@@ -84,31 +86,7 @@
 					</v-card>
 				</v-col>
 			</v-col>
-			<v-col cols="1"></v-col>
-			<v-col cols="5">
-				<v-col cols="2"></v-col>
-				<v-col cols="10">
-					<v-card outlined shaped>
-						<v-list-item three-line>
-							<v-list-item-content>
-								<div class="overline pt-2">2020.00.00</div>
-								<v-list-item-title class="headline mb-1">프로젝트03</v-list-item-title>
-								<v-list-item-subtitle>PM : 박피엠</v-list-item-subtitle>
-							</v-list-item-content>
-
-							<v-spacer></v-spacer>
-						</v-list-item>
-					</v-card>
-				</v-col>
-			</v-col>
-			<v-col cols="1">
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<!-- to="mypage" 수정 필요 -->
+			<v-col cols="12">
 				<v-btn class="ma-2" outlined color="primary"
 					><v-icon left>mdi-account-circle</v-icon>More</v-btn
 				>
@@ -139,6 +117,39 @@ export default {
 	data: () => ({
 		//
 		drawer: false,
+		onGoingProjs: [],
+		finishedProjs: [],
 	}),
+	mounted() {
+		this.getProjs();
+	},
+	methods: {
+		onSelectProj(item) {
+			console.log(item);
+			this.$store.commit("selectProj", item);
+			this.$router.push("/projectdetailpage/");
+		},
+		getProjs() {
+			if (!this.$store.state.id) return;
+			this.$axios
+				.get(`/api/participants/${this.$store.state.sn}`)
+				.then(projs => {
+					projs.data.forEach(proj => {
+						if (
+							proj.END_DATE <=
+							new Date()
+								.toISOString()
+								.replace("T", " ")
+								.substr(0, 10)
+						)
+							this.finishedProjs.push(proj);
+						else this.onGoingProjs.push(proj);
+					});
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
+	},
 };
 </script>

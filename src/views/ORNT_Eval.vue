@@ -150,11 +150,6 @@ export default {
 		onClose() {
 			this.dialog = false;
 		},
-		watch: {
-			dialog(val) {
-				val || this.close();
-			},
-		},
 		onSave() {
 			if (this.editFlag) {
 				// just save

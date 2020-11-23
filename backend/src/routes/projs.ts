@@ -76,10 +76,8 @@ router.patch("/:projSN", async function(req, res) {
 	temp.OUTSET_DATE = new Date(req.body.date.slice(0, req.body.date.indexOf("/")));
 	if (!req.body.date.endsWith("/"))
 		temp.END_DATE = new Date(req.body.date.slice(req.body.date.indexOf("/") + 1, 21));
-
+	else temp.END_DATE = null;
 	let proj = await getRepository(Proj).findOne({ PROJ_SN: parseInt(req.params.projSN) });
-	temp.END_DATE = proj.END_DATE;
-
 	let ornt = await getRepository(Ornt).findOne({ ORNT_NM: req.body.client });
 	if (ornt.ORNT_SN != proj.ORNT_SN) {
 		temp.ORNT_SN = ornt.ORNT_SN;

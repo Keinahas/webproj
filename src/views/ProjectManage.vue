@@ -36,7 +36,12 @@
 													></v-text-field>
 												</v-col>
 												<v-col cols="12" sm="6" md="4">
-													<v-select :items="ornts" label="발주처" required></v-select>
+													<v-select
+														v-model="newModel.client"
+														:items="ornts"
+														label="발주처"
+														required
+													></v-select>
 												</v-col>
 											</v-row>
 										</v-container>
@@ -54,11 +59,15 @@
 						<v-btn icon @click="onEdit(item)">수정<v-icon>mdi-pencil</v-icon></v-btn>
 					</template>
 					<template v-slot:item.termination="{ item }"
-						><v-btn @click="onTermination(item)">종료</v-btn></template
-					>
+						><v-btn @click="onTermination(item)" v-if="!item.terminated">종료</v-btn>
+						<v-btn v-else disabled>종료</v-btn>
+					</template>
 					<template v-slot:item.projectpage="{ item }"
-						><v-btn @click="onProjectpage(item)">프로젝트 페이지 바로가기</v-btn></template
-					>
+						><v-btn v-if="!item.terminated" @click="onProjectpage(item)"
+							>프로젝트 페이지 바로가기</v-btn
+						>
+						<v-btn v-else @click="onProjectEvalpage(item)">프로젝트 평가 바로가기</v-btn>
+					</template>
 				</v-data-table>
 			</v-col>
 		</v-row>
@@ -75,7 +84,6 @@ export default {
 	},
 	data: () => ({
 		ornts: [],
-		selectedIdx: -1,
 		newModel: {
 			number: 0,
 			name: "",
@@ -84,24 +92,7 @@ export default {
 			client: "",
 			pm_name: "",
 		},
-		project_manage_page: [
-			{
-				number: 1111,
-				name: "프로젝트명",
-				numofpeople: 6,
-				date: "프로젝트 착수/종료일자",
-				client: "발주처",
-				pm_name: "담당자",
-			},
-			{
-				number: 2222,
-				name: "프로젝트명1",
-				numofpeople: 6,
-				date: "프로젝트 착수/종료일자1",
-				client: "발주처1",
-				pm_name: "담당자1",
-			},
-		],
+		project_manage_page: [],
 		headers: [
 			{ text: "프로젝트 번호", value: "number" },
 			{ text: "프로젝트명", value: "name" },
@@ -115,15 +106,10 @@ export default {
 		],
 		dialog: false,
 	}),
-	computed: {
-		formTitle() {
-			return this.editedIndex === -1 ? "New Item" : "Edit Item";
-		},
-	},
+	computed: {},
 	methods: {
 		onAdd() {},
 		onEdit(item) {
-			this.selectedIdx = this.project_manage_page.indexOf(item);
 			this.newModel = Object.assign({}, item);
 			this.dialog = true;
 		},
@@ -147,7 +133,27 @@ export default {
 			this.$store.commit("selectProj", item);
 			this.$router.push("/projectdetailpage/");
 		},
+		onProjectEvalpage(item) {
+			this.$store.commit("selectProj", item);
+			this.$axios
+				.get(`/api/participants/chkPM/${this.$store.state.sn}`)
+				.then(res => {
+					if (res.status == 204) {
+						this.$router.push("/pm_eval");
+					} else {
+						if (this.$store.state.role == "Developer") {
+							this.$router.push("/crk_eval");
+						} else if (this.$store.state.role == "Manager") {
+							this.$router.push("/mngmt_eval");
+						}
+					}
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		},
 		onClose() {
+			console.log(this.newModel);
 			this.dialog = false;
 		},
 		onSave() {
@@ -165,6 +171,13 @@ export default {
 			this.$axios
 				.get("/api/proj")
 				.then(projs => {
+					projs.data.forEach(proj => {
+						if (!proj.date.endsWith("/")) {
+							proj.terminated = true;
+						} else {
+							proj.terminated = false;
+						}
+					});
 					this.project_manage_page = projs.data;
 				})
 				.catch(err => {
@@ -177,7 +190,8 @@ export default {
 		this.$axios
 			.get("/api/ornt")
 			.then(ornts => {
-				this.ornts = ornts.data;
+				console.log(ornts.data);
+				this.ornts = ornts.data.map(ornt => ornt.ORNT_NM);
 			})
 			.catch(err => {
 				console.log(err);
